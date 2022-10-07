@@ -27,7 +27,7 @@ export default function Charity() {
           setcharitiesdata(charitydataarr);
           setLoading(false);
 
-          // console.log("idddddd", charitiesdata);
+          console.log("idddddd", charitiesdata);
         }
       });
     } catch (error) {
@@ -38,12 +38,15 @@ export default function Charity() {
     data: {
       charityName: "",
       charityDescription: "",
+      charityTagLine: "",
     },
     id: "",
   });
   const initialvalues = {
     charityName: "",
     charityDescription: "",
+    charityTagLine: "",
+    donateLink: "",
   };
   const [formvalues, setFormvalues] = useState({ ...initialvalues });
 
@@ -53,6 +56,8 @@ export default function Charity() {
       ...formvalues,
       charityName: item.data.charityName,
       charityDescription: item.data.charityDescription,
+      charityTagLine: item.data.charityTagLine,
+      donateLink: item.data.donateLink,
     });
 
     // handleShow();
@@ -72,6 +77,8 @@ export default function Charity() {
     await updateDoc(charityref, {
       charityName: formvalues.charityName,
       charityDescription: formvalues.charityDescription,
+      charityTagLine: formvalues.charityTagLine,
+      donateLink: formvalues.donateLink,
     });
     // window.location.reload();
     handleClose();
@@ -101,78 +108,101 @@ export default function Charity() {
               Add Charity
             </button>
           </div>
-          <table class="table text-white">
-            <thead class="thead-dark">
-              <tr>
-                <th scope="col">charityImage</th>
-                <th scope="col">charityLogoImage</th>
-                <th scope="col">charityName</th>
-                <th scope="col">charityDescription</th>
-                <th scope="col">charityTagLine</th>
-                <th scope="col">Actions</th>
-              </tr>
-            </thead>
-            <tbody>
-              {loading || !charitiesdata
-                ? "Loading...."
-                : charitiesdata.map((item) => (
-                    <tr>
-                      <td>
-                        {item.data.charityImage ? (
-                          <img
-                            src={item.data.charityImage}
-                            alt="charityimage"
-                          />
-                        ) : (
-                          <img src={Noimage} alt="" />
-                        )}
-                      </td>
-                      <td>
-                        {item.data.charityLogoImage ? (
-                          <img
-                            src={item.data.charityLogoImage}
-                            alt="charitylogimage"
-                          />
-                        ) : (
-                          <img src={Noimage} alt="" />
-                        )}
-                      </td>
-                      <td> {item.data.charityName}</td>
-                      <td>
+          {loading || !charitiesdata ? (
+            <div
+              class="d-flex justify-content-center align-items-center"
+              style={{ height: "80vh" }}
+            >
+              <div className="d-flex flex-column">
+                <div>
+                  <div class="spinner-grow text-primary" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-secondary ms-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-success ms-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-danger ms-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                  <div class="spinner-grow text-warning ms-1" role="status">
+                    <span class="visually-hidden">Loading...</span>
+                  </div>
+                </div>
+                <p className="text-center fw-normal">Loading...</p>
+              </div>
+            </div>
+          ) : (
+            <table class="table text-white">
+              <thead class="thead-dark">
+                <tr>
+                  <th scope="col">charityImage</th>
+                  <th scope="col">charityLogoImage</th>
+                  <th scope="col">charityName</th>
+                  <th scope="col">charityDescription</th>
+                  <th scope="col">charityTagLine</th>
+                  <th scope="col">Actions</th>
+                </tr>
+              </thead>
+              <tbody>
+                {charitiesdata.map((item, i) => (
+                  <tr key={i}>
+                    <td>
+                      {item.data.charityImage ? (
+                        <img src={item.data.charityImage} alt="charityimage" />
+                      ) : (
+                        <img src={Noimage} alt="" />
+                      )}
+                    </td>
+                    <td>
+                      {item.data.charityLogoImage ? (
+                        <img
+                          src={item.data.charityLogoImage}
+                          alt="charitylogimage"
+                        />
+                      ) : (
+                        <img src={Noimage} alt="" />
+                      )}
+                    </td>
+                    <td> {item.data.charityName}</td>
+                    <td>
+                      {" "}
+                      <div className="charitydescription">
                         {" "}
-                        <div className="charitydescription">
-                          {" "}
-                          {item.data.charityDescription}
-                        </div>
-                      </td>
-                      <td>{item.data.charityTagLine}</td>
-                      <td>
-                        <div className="d-flex align-items-center gap-2 actions">
-                          <span
-                            className="btn btn-primary"
-                            data-bs-toggle="offcanvas"
-                            data-bs-target="#offcanvasRight"
-                            aria-controls="offcanvasRight"
-                            onClick={() => setSingleitemCharity(item.data)}
-                          >
-                            View
-                          </span>
-                          <span
-                            className="btn btn-success"
-                            data-bs-toggle="offcanvas"
-                            data-bs-target="#updatecharity"
-                            aria-controls="updatecharity"
-                            onClick={() => modalfunction(item)}
-                          >
-                            Update
-                          </span>
-                          <span className="btn btn-danger">Delete</span>
-                        </div>
-                      </td>
-                    </tr>
-                  ))}
-            </tbody>
-          </table>
+                        {item.data.charityDescription}
+                      </div>
+                    </td>
+                    <td>{item.data.charityTagLine}</td>
+                    <td>
+                      <div className="d-flex align-items-center gap-2 actions">
+                        <span
+                          className="btn btn-primary"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#offcanvasRight"
+                          aria-controls="offcanvasRight"
+                          onClick={() => setSingleitemCharity(item.data)}
+                        >
+                          View
+                        </span>
+                        <span
+                          className="btn btn-success"
+                          data-bs-toggle="offcanvas"
+                          data-bs-target="#updatecharity"
+                          aria-controls="updatecharity"
+                          onClick={() => modalfunction(item)}
+                        >
+                          Update
+                        </span>
+                        <span className="btn btn-danger">Delete</span>
+                      </div>
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          )}
         </div>
       </>
     </div>

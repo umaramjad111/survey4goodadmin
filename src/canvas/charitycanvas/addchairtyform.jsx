@@ -11,7 +11,7 @@ export default function Addchairtyform() {
     charityImage: null,
     charityHeadlineImage: null,
     charityLogoImage: null,
-    secondaryPictures: null,
+    secondaryPictures: [],
   };
   const [formvalues, setFormvalues] = useState({ ...initialformvalues });
   const [formError, setFormError] = useState({});
@@ -43,7 +43,7 @@ export default function Addchairtyform() {
     if (imgstate === 4) {
       setFormvalues({
         ...formvalues,
-        secondaryPictures: e.target.files[0],
+        secondaryPictures: e.target.files,
       });
     }
   };
@@ -77,7 +77,7 @@ export default function Addchairtyform() {
     if (!values.charityName) {
       errors.charityName = "Charity Name is Required";
     }
-    if (!values.charityCategories) {
+    if (!values.charityCategories || values.charityCategories.length === 0) {
       errors.charityCategories = "Charity Categories is Required";
     }
     if (!values.charityDescription) {
@@ -98,7 +98,7 @@ export default function Addchairtyform() {
     if (!values.charityLogoImage) {
       errors.charityLogoImage = "Charity Logo is Required";
     }
-    if (!values.secondaryPictures) {
+    if (!values.secondaryPictures || values.secondaryPictures.length === 0) {
       errors.secondaryPictures = "Charity Secondary Images is Required";
     }
     return errors;
@@ -250,7 +250,9 @@ export default function Addchairtyform() {
             type="file"
             className="w-100 form-control mt-2"
             onChange={imageHandler}
-            accept=".jpg,.png,.jpeg"
+            multiple
+            name="secondaryPictures"
+            // accept="image/*"
             onClick={() => setImage(4)}
           />
           {formError.secondaryPictures ? (

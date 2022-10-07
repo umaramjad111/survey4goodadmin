@@ -46,6 +46,28 @@ export default function Updatecharity({
             onChange={handleChange}
           />
         </label>
+        <label htmlFor="" className="w-100 mt-2">
+          Charity TagLine
+          <input
+            type="text"
+            name="charityTagLine"
+            placeholder="Enter your charity Description"
+            className="w-100 form-control mt-2"
+            value={formvalues.charityTagLine}
+            onChange={handleChange}
+          />
+        </label>
+        <label htmlFor="" className="w-100 mt-2">
+          Donate Link
+          <input
+            type="text"
+            name="donateLink"
+            placeholder="Enter your charity Description"
+            className="w-100 form-control mt-2"
+            value={formvalues.donateLink}
+            onChange={handleChange}
+          />
+        </label>
 
         <button
           className="btn btn-primary mt-3"

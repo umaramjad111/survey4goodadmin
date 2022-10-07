@@ -10,7 +10,7 @@
   width: 100%;
   
   overflow: hidden;
-  padding: 20px;
+  padding: 20px 22px 20px 20px;
   
 }
 .image__col {
@@ -52,7 +52,6 @@
   justify-content: center;
   padding: 20px 15px 20px 15px;
   align-items: center;
-  
   border: 3px solid #c9c2fc;
   box-shadow: 5px 5px 15px -5px #000000;
   border-radius: 20px;
